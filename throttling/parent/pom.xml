@@ -4,7 +4,7 @@
 
 	<groupId>org.vhorvath.valogato</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>throttling</name>
 	<url>http://maven.apache.org</url>
@@ -53,7 +53,7 @@
 	</dependencies>
 
 	<scm>
-        <connection>scm:hg:https://code.google.com/p/valogato</connection>
+        <connection>scm:hg:https://https://ric.flair.wcw:BA2fx9Vy4aX4@code.google.com/p/valogato</connection>
     </scm>	
 	
 </project>
