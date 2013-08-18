@@ -1,0 +1,16 @@
+<generalConfiguration>
+	
+	<!-- DUMMY, CACHE -->
+	<backendserviceConfigSource>CACHE</backendserviceConfigSource>
+	
+	<!-- for usage + waiting request lists -->
+	<!-- DUMMY, CACHE -->
+	<statisticsSource>CACHE</statisticsSource>
+	
+	<!--cache type="Hazelcast"/-->
+	<cache type="Terracotta">
+		<param name="distributedCacheName">THROTTLING_DISTRIBUTED_STORE</param>
+	</cache>
+	<!--cache type="Dummy"/-->
+	
+</generalConfiguration>

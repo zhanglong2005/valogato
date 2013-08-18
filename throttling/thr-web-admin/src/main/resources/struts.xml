@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true"/>
+<!-- 	<constant name="struts.enable.DynamicMethodInvocation" value="false"/> -->
+	
+	<package name="default" extends="struts-default" namespace="/">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+		</result-types>
+
+		<interceptors>
+			<interceptor name="parameterLogger" class="org.vhorvath.valogato.web.utils.ThrottlingParameterLoggerInterceptor"/>
+			<interceptor-stack name="logginStack">
+				<interceptor-ref name="parameterLogger"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="logginStack" />
+		
+		<global-results>
+			<result name="error" type="tiles">/error/error.tiles</result>
+			<result name="configuration_error" type="tiles">/error/configuration_error.tiles</result>
+			<result name="web_error" type="tiles">/error/web_error.tiles</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"/>
+			<exception-mapping result="configuration_error" exception="org.vhorvath.valogato.common.exception.ThrottlingConfigurationException"/>
+			<exception-mapping result="web_error" exception="org.vhorvath.valogato.web.utils.exception.ThrottlingWebException"/>
+		</global-exception-mappings>
+	</package>
+	
+	<package name="main" extends="default">
+		<action name="index" class="org.vhorvath.valogato.web.actions.IndexAction">
+			<result name="SUCCESS" type="tiles">/menu.tiles</result>
+		</action>
+	</package>
+
+	<package name="frequency" extends="default">
+		<action name="list_frequency" class="org.vhorvath.valogato.web.actions.frequency.FrequencyListAction">
+			<result name="SUCCESS" type="tiles">/frequency/list.tiles</result>
+		</action>	
+
+		<action name="update_frequency" class="org.vhorvath.valogato.web.actions.frequency.FrequencyUpdateAction">
+			<result name="SUCCESS" type="tiles">/frequency/update.tiles</result>
+		</action>
+
+		<action name="reset_frequency" class="org.vhorvath.valogato.web.actions.frequency.FrequencyResetAction">
+			<result name="SUCCESS" type="redirectAction">list_frequency</result>
+		</action>
+
+		<action name="reset_sleepingreq" class="org.vhorvath.valogato.web.actions.frequency.SleepingReqResetAction">
+			<result name="SUCCESS" type="redirectAction">list_frequency</result>
+		</action>
+
+		<action name="reset_all_frequency" class="org.vhorvath.valogato.web.actions.frequency.FrequencyResetAllAction">
+			<result name="SUCCESS" type="redirectAction">list_frequency</result>
+		</action>
+
+		<action name="reset_all_sleepingreq" class="org.vhorvath.valogato.web.actions.frequency.SleepingReqResetAllAction">
+			<result name="SUCCESS" type="redirectAction">list_frequency</result>
+		</action>
+
+		<action name="save_frequency" class="org.vhorvath.valogato.web.actions.frequency.FrequencySaveAction">
+			<result name="input" type="tiles">/frequency/update.tiles</result>
+			<result name="SUCCESS" type="redirectAction">list_frequency</result>
+		</action>	
+	</package>
+	
+	<package name="backendServiceConfig" extends="default">
+		<action name="list_backendservice_config" class="org.vhorvath.valogato.web.actions.backendServiceConfig.BackendServiceConfigListAction">
+			<result name="SUCCESS" type="tiles">/backendservice/list.tiles</result>
+			<result name="DOWNLOAD" type="stream">
+			   <param name="contentDisposition">attachment;filename=export.xml</param>
+			   <param name="contentType">application/xml</param>
+			   <param name="inputName">inputStream</param>
+			   <param name="bufferSize">1024</param>
+			</result>
+		</action>
+		
+		<action name="update_backendservice_config" class="org.vhorvath.valogato.web.actions.backendServiceConfig.BackendServiceConfigUpdateAction">
+			<result name="input" type="tiles">/backendservice/update.tiles</result>
+			<result name="UPDATE" type="tiles">/backendservice/update.tiles</result>
+			<result name="LIST" type="redirectAction">list_backendservice_config</result>
+		</action>
+		
+		<action name="update_simulatedservice_config" class="org.vhorvath.valogato.web.actions.backendServiceConfig.SimulatedServiceConfigUpdateAction">
+			<result name="input" type="tiles">/simulatedservice/update.tiles</result>
+			<result name="UPDATE" type="tiles">/simulatedservice/update.tiles</result>
+			<result name="LIST" type="redirectAction">update_backendservice_config?nameBackendService=${nameBackendService}</result>
+		</action>
+	</package>
+	
+	<package name="administration" extends="default">
+		<action name="administration" class="org.vhorvath.valogato.web.actions.administration.MainBackendServiceConfigAction">
+			<result name="SUCCESS" type="tiles">/administration/main.tiles</result>
+		</action>
+
+		<action name="administration_loadBackendServiceConfig" class="org.vhorvath.valogato.web.actions.administration.LoadBackendServiceConfigAction">
+			<result name="SUCCESS" type="tiles">/administration/main.tiles</result>
+		</action>
+		
+		<action name="administration_uploadNewBackendServiceConfig" class="org.vhorvath.valogato.web.actions.administration.UploadNewBackendServiceConfigAction">
+			<result name="SUCCESS" type="tiles">/administration/main.tiles</result>
+		</action>
+	</package>
+
+</struts>   

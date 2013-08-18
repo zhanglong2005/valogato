@@ -1,0 +1,62 @@
+
+<!-- 
+There are two places where this file should be placed:
+1. on client side (where the simulated service is)
+2. on web application side (where the central control module is)
+-->
+<generalConfiguration>
+
+	<!--
+	 | Defining the source of the backend service configuration
+	 |
+	 | Mandatory: YES
+	 |
+	 | Element name: backendserviceConfigSource
+	 |
+	 | The possible values are:
+	 |  - CACHE: the data comes from memory cache 
+	 |  - DUMMY: a dummy source is used to test the capabilities of the web application
+	 |           The throttling system cannot be used with this source!
+	 
+	 <backendserviceConfigSource>CACHE</backendserviceConfigSource>
+	-->
+	
+	
+	<!--
+	 | Defining the source of the statistics data
+	 |
+	 | Mandatory: YES
+	 |
+	 | Element name: statisticsSource
+	 |
+	 | The possible values are:
+	 |  - CACHE: the data comes from memory cache 
+	 |  - DUMMY: a dummy source is used to test the capabilities of the web application
+	 |           The throttling system cannot be used with this source!
+	 
+	 <statisticsSource>CACHE</statisticsSource>
+	-->
+	
+	
+	<!--
+	 | Defining the implementation of the memory cache
+	 |
+	 | Mandatory: YES
+	 |
+	 | Element name: statisticsSource	 
+	 |
+	 | Attributes:
+     |   type: the name of the memory cache implementation; possible values are 'Terracotta', 'Terracotta' and 'Dummy'; mandatory: YES
+	 |
+	 | Child elements: parameters can be defined for the cache which can be done by the element 'param'
+	 | Mandatory: YES (at least the 'distributedCacheName' parameter must exist)
+	 | Attributes of the element 'param':
+	 |   name: name of the parameter; mandatory: YES
+	 | Value: the value of the parameter (in case of 'distributedCacheName' the value must contain the name of the created cache in the configuration of the specific memory cache implementation)
+	 
+	<cache type="Terracotta">
+		<param name="distributedCacheName">THROTTLING_DISTRIBUTED_STORE</param>
+	</cache>
+	-->
+	
+</generalConfiguration>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+	
+	<definition name="baseLayout" template="/jsp/baseLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/jsp/header.jsp" />
+		<put-attribute name="menu" value="/jsp/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/jsp/footer.jsp" />
+	</definition>
+	
+	<definition name="/menu.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Main Menu" />
+		<put-attribute name="body" value="/jsp/welcome.jsp" />
+	</definition>
+	
+	<definition name="/frequency/list.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Frequency List"/>
+		<put-attribute name="body" value="/jsp/frequency_list.jsp"/>
+	</definition>
+	
+	<definition name="/frequency/update.tiles" extends="baseLayout">
+		<put-attribute name="title" value="Frequency Update"/>
+		<put-attribute name="body" value="/jsp/frequency_update.jsp"/>
+	</definition>
+	
+	<definition name="/backendservice/list.tiles" extends="baseLayout">
+		<put-attribute name="title" value="BackendService List"/>
+		<put-attribute name="body" value="/jsp/backendServiceConfig_list.jsp"/>
+	</definition>
+
+	<definition name="/backendservice/update.tiles" extends="baseLayout">
+		<put-attribute name="title" value="BackendService Update"/>
+		<put-attribute name="body" value="/jsp/backendServiceConfig_update.jsp"/>
+	</definition>
+
+	<definition name="/simulatedservice/update.tiles" extends="baseLayout">
+		<put-attribute name="title" value="SimulatedService Update"/>
+		<put-attribute name="body" value="/jsp/simulatedServiceConfig_update.jsp"/>
+	</definition>
+
+	<definition name="/administration/main.tiles" extends="baseLayout">
+		<put-attribute name="title">Administration</put-attribute>
+		<put-attribute name="body">/jsp/administrationMain.jsp</put-attribute>
+	</definition>
+
+	<!-- ################## ERRORS ################## -->
+	<definition name="/error/error.tiles" extends="baseLayout">
+		<put-attribute name="title">Error</put-attribute>
+		<put-attribute name="body">/jsp/error.jsp</put-attribute>
+	</definition>
+	
+	<definition name="/error/configuration_error.tiles" extends="baseLayout">
+		<put-attribute name="title">Configuration Error</put-attribute>
+		<put-attribute name="body">/jsp/configuration_error.jsp</put-attribute>
+	</definition>
+
+	<definition name="/error/web_error.tiles" extends="baseLayout">
+		<put-attribute name="title">Web Application Error</put-attribute>
+		<put-attribute name="body">/jsp/web_error.jsp</put-attribute>
+	</definition>
+
+</tiles-definitions>

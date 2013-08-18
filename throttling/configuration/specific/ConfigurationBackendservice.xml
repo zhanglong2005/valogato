@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<backendServices>
+
+	<!-- ############################# Backend Service Configuration ############################# -->
+	<backendService name="BigSystem" maxLoading="1" averageResponseTime="28000">
+		<!-- if the backend service is called this feature will be applied unless there is an exception feature defined for a 
+		     specific simulated service-->
+		<feature name="WaitingFeature">
+			<param name="period">1000</param>
+			<param name="waitingReqListMaxSize">10</param>
+			<param name="maxNumberOfWaitingReqs">2000</param>
+			<!-- FAST (working without the next two things), MAINTAINING_FREE_SLOTS, REGISTERING_REQUESTS_INDIVIDUALLY -->
+			<param name="strategy">FAST</param>
+		</feature>
+		
+		<!-- exception features -->
+		<simulatedService name="BigSimulatedSystem_Waiting">
+			<feature name="WaitingFeature">
+				<param name="period">1000</param>
+				<param name="waitingReqListMaxSize">200</param>
+				<param name="maxNumberOfWaitingReqs">2000</param>
+				<!-- FAST (working without the next two things), MAINTAINING_FREE_SLOTS, REGISTERING_REQUESTS_INDIVIDUALLY -->
+				<param name="strategy">REGISTERING_REQUESTS_INDIVIDUALLY</param>
+			</feature>
+		</simulatedService>
+		<simulatedService name="BigSimulatedSystem_FaultBack">
+			<feature name="SendBackFaultFeature"/>
+		</simulatedService>	
+		<simulatedService name="BigSimulatedSystem_Forwarder">
+			<feature name="ForwarderFeature">
+				<param name="endpoints">http://viktor-pc:1051/mockGetCustomerByIdHttpBinding; http://viktor-pc:1052/mockGetCustomerByIdHttpBinding</param>
+			</feature>
+		</simulatedService>	
+	</backendService>
+
+	<backendService name="ImportantSystem" maxLoading="5" averageResponseTime="10000">
+		<feature name="ForwarderFeature">
+			<param name="endpoints">http://localhost:8029/mockGetCustomerByIdHttpBinding; http://localhost:8030/mockGetCustomerByIdHttpBinding</param>
+		</feature>
+	</backendService>
+	
+	<backendService name="FragileService" maxLoading="5" averageResponseTime="10000">
+		<feature name="WaitingFeature">
+			<param name="period">1000</param>
+			<param name="waitingReqListMaxSize">200</param>
+			<param name="maxNumberOfWaitingReqs">2000</param>
+			<param name="strategy">REGISTERING_REQUESTS_INDIVIDUALLY</param>
+		</feature>
+	</backendService>
+
+	<backendService name="HeavilyUsedService" maxLoading="5" averageResponseTime="10000">
+		<feature name="SendBackFaultFeature"/>
+	</backendService>
+
+	<backendService name="HunService" maxLoading="5" averageResponseTime="10000">
+		<feature name="SendBackFaultFeature"/>
+	</backendService>
+
+</backendServices>

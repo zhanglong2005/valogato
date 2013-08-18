@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ | This file is for configuring the backend service properties and assigning feature to them.
+ | 
+-->
+
+<backendServices>
+
+	<!--
+	 | Specifying a backend system and configuring it.
+	 |
+	 | Element name: backendService
+	 |
+	 | More backendService elements can be specified as a list.
+	 |
+	 | Attributes:
+	 |   name: the name of the backend service; mandatory: YES
+	 |   maxLoading: the number of requests which can be served without applying a feature; mandatory: YES
+	 |   averageResponseTime: the value of the average response time in milliseconds; if a request exceeds (e.g. while waiting) this value a fault 
+	 |                        should be thrown; mandatory: YES
+	 |
+ 	 | Child elements: 
+	 || - feature: the feature can be defined here which will be assigned to the backend service
+	 ||     Attributes:
+	 ||       name: the name of the feature; mandatory: YES
+	 ||
+	 ||     Element name: feature
+	 ||
+	 ||     Child elements: some parameters can be defined for the new feature which can be done by the element 'param'; detailed descript see below
+	 ||     Mandatory: NO
+	 ||     More parameters can be specified as a list.
+	 ||     Attributes of the element 'param':
+	 ||       name: name of the parameter; mandatory: YES
+	 ||     Value: the value of the parameter
+	 |
+	 || - simulatedService: it is possible to define exceptions which are valid only for the specific simulated service (all the simulated services will use the 
+	 ||                     feature being set on the backendService level except this simulated service)
+	 ||     Attributes:
+	 ||       name: the name of the simulated service; mandatory: YES
+	 ||
+	 ||     Element name: simulatedService
+	 ||
+	 ||     More simulatedService elements can be specified as a list.
+     ||
+	 ||     Child elements: one feature can be defined for the simulated service; description: see above
+	 |
+	 | Parameters:
+	 |   1. WaitingFeature
+	 |       - period: the period of the sleeping in millisec. (it is used in WaitingFeature)
+	 |       - waitingReqListMaxSize: If the requests has to be registered individually (strategy=REGISTERING_REQUESTS_INDIVIDUALLY) then the id of the request must be 
+	 |             stored in list. Handling a huge list would be very time and performance consuming so this list is split smaller lists and the max. size these smaller 
+     |             list can be controlled with the this parameter
+	 |       - maxNumberOfWaitingReqs: If the requests has to be registered individually (strategy=REGISTERING_REQUESTS_INDIVIDUALLY) then the id of the request must be 
+	 |             stored in list. The max. number of the requests can be set here.
+	 |       - strategy: What strategy is used when waiting is needed? Possible values: FAST, MAINTAINING_FREE_SLOTS, REGISTERING_REQUESTS_INDIVIDUALLY
+	 |   1. SendBackFaultFeature: no parameters
+
+	<backendService name="FragileService" maxLoading="100" averageResponseTime="30000">
+		<feature name="SendBackFaultFeature"/>
+		
+		<simulatedService name="SimulatedFragileService_WaitingAwhile">
+			<feature name="WaitingFeature">
+				<param name="period">250</param>
+				<param name="waitingReqListMaxSize">200</param>
+				<param name="maxNumberOfWaitingReqs">2000</param>
+				<param name="strategy">MAINTAINING_FREE_SLOTS</param>
+			</feature>
+		</simulatedService>
+		<simulatedService name="SimulatedFragileService_WaitingLong">
+			<feature name="WaitingFeature">
+				<param name="period">1000</param>
+				<param name="waitingReqListMaxSize">200</param>
+				<param name="maxNumberOfWaitingReqs">2000</param>
+				<param name="strategy">REGISTERING_REQUESTS_INDIVIDUALLY</param>
+			</feature>
+		</simulatedService>	
+	</backendService>
+
+	<backendService name="StableService" maxLoading="1000" averageResponseTime="10000">
+		<feature name="WaitingFeature">
+			<param name="period">250</param>
+			<param name="waitingReqListMaxSize">500</param>
+			<param name="maxNumberOfWaitingReqs">10000</param>
+			<param name="strategy">MAINTAINING_FREE_SLOTS</param>
+		</feature>
+	</backendService>
+	 
+	-->
+
+</backendServices>

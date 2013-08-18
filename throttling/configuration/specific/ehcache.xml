@@ -1,0 +1,9 @@
+<ehcache name="THROTTLING_DISTRIBUTED_STORE" monitoring="autodetect" dynamicConfig="true">
+	<cache maxElementsInMemory="500" eternal="true" memoryStoreEvictionPolicy="LRU" name="THROTTLING_DISTRIBUTED_STORE">
+		<persistence strategy="distributed" synchronousWrites="true"/>
+		<terracotta clustered="true" synchronousWrites="true" consistency="strong">
+			<nonstop enabled="true" immediateTimeout="true"/>
+		</terracotta>
+	</cache>
+	<terracottaConfig url="localhost:8510" rejoin="true" />
+</ehcache>

@@ -1,0 +1,22 @@
+<tc:tc-config xmlns:tc="http://www.terracotta.org/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.terracotta.org/schema/terracotta-5.xsd">
+	<servers>
+		<server name="Server1" host="localhost">
+			<data>d:/utils/terracotta-3.7.5/terracotta/server1-data</data>
+			<dso-port>8510</dso-port>
+			<jmx-port>8520</jmx-port>
+			<l2-group-port>8530</l2-group-port>
+			<dso>
+				<client-reconnect-window>120</client-reconnect-window>
+				<persistence>
+					<mode>permanent-store</mode>
+				</persistence>
+			</dso>
+		</server>
+		<ha>
+			<mode>networked-active-passive</mode>
+			<networked-active-passive>
+				<election-time>5</election-time>
+			</networked-active-passive>
+		</ha>
+	</servers>
+</tc:tc-config>

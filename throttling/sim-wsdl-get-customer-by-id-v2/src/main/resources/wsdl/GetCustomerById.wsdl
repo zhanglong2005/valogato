@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="urn:vhorvath:throttling:simulation:wsdl:get-customer-by-id-v2"
+				  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+				  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+				  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+				  xmlns:tns="urn:vhorvath:throttling:simulation:wsdl:get-customer-by-id-v2">
+				  
+	<wsdl:types>
+		<xsd:schema targetNamespace="urn:vhorvath:throttling:simulation:wsdl:get-customer-by-id-v2">
+			<xsd:element name="GetByIdHeader">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="user" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+						<xsd:element name="password" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetByIdRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="id" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetByIdResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+						<xsd:element name="address" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+						<xsd:element name="nin" type="xsd:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="GetByIdFault">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="error" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="getByIdRequest">
+		<!--wsdl:part name="headerInput" element="tns:GetByIdHeader"/-->
+		<wsdl:part name="bodyInput" element="tns:GetByIdRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getByIdResponse">
+		<wsdl:part name="bodyOutput" element="tns:GetByIdResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getByIdFault">
+		<wsdl:part name="bodyFault" element="tns:GetByIdFault"/>
+	</wsdl:message>
+	
+	<!--wsdl:message name="getByNINRequest">
+		<wsdl:part name="bodyInput" element="GetByNINRequest"/>
+	</wsdl:message>
+	<wsdl:message name="getByNINResponse">
+		<wsdl:part name="bodyOutput" element="GetByNINResponse"/>
+	</wsdl:message>
+	<wsdl:message name="getByNINFault">
+		<wsdl:part name="bodyFault" element="fau:SOAPFaultMessage"/>
+	</wsdl:message-->
+
+	<wsdl:portType name="ThrottlingSimulatedPortType">
+		<wsdl:operation name="getById">
+			<wsdl:input name="inputMsg1" message="tns:getByIdRequest"/>
+			<wsdl:output name="outputMsg1" message="tns:getByIdResponse"/>
+			<wsdl:fault name="errorMsg1" message="tns:getByIdFault"/>
+		</wsdl:operation>
+		<!--wsdl:operation name="getByNIN">
+			<wsdl:input name="inputMsg2" message="getByNINRequest"/>
+			<wsdl:output name="outputMsg2" name="getByNINResponse"/>
+			<wsdl:fail name="errorMsg2" name="getByNINFault"/>
+		</wsdl:operation-->
+	</wsdl:portType>
+	
+	<wsdl:binding name="GetCustomerByIdHttpBinding" type="tns:ThrottlingSimulatedPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getById">
+			<soap:opeartion style="document" soapAction="get"/>
+			<wsdl:input name="inputMsg1">
+				<soap:body use="literal" parts="bodyInput"/>
+			</wsdl:input>
+			<wsdl:output name="outputMsg1">
+				<soap:body use="literal" parts="bodyOutput"/>
+			</wsdl:output>
+			<wsdl:fault name="errorMsg1">
+				<soap:fault name="errorMsg1" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation>
+		<!-- National Insurance Number -->
+		<!--wsdl:operation name="getByNIN"> 
+			<soap:opeartion style="document" soapAction="get"/>
+			<wsdl:input name="inputMsg2">
+				<soap:body use="literal" parts="bodyInput"/>
+			</wsdl:input>
+			<wsdl:output name="outputMsg2">
+				<soap:body use="literal" parts="bodyOutput"/>
+			</wsdl:output>
+			<wsdl:fault name="errorMsg2">
+				<soap:fault name="errorMsg2" use="literal"/>
+			</wsdl:fault>
+		</wsdl:operation-->
+	</wsdl:binding>
+
+	<wsdl:service name="GetCustomerById">
+		<wsdl:port name="ThrottlingSimulatedPort" binding="tns:GetCustomerByIdHttpBinding">
+			<soap:address location=""/>
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>

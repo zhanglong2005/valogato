@@ -1,0 +1,121 @@
+.displaytag {
+     font-family: Arial,Verdana,sans-serif;
+     font-size: 14px;
+}
+
+.displaytag table {
+     border: 1px solid #666666;
+     margin: 20px 0px ! important;
+     width: 100%;
+     table-layout: fixed;
+}
+
+.displaytag th, .displaytag td {
+     padding: 2px 4px ! important;
+     text-align: left;
+     vertical-align: top;
+     word-wrap: break-word;
+}
+
+.displaytag thead tr {
+     background-color: #FFCC00;
+}
+
+.displaytag th.sorted {
+     background-color: orange;
+}
+
+.displaytag th a, .displaytag th a:visited {
+     color: black;
+}
+
+.displaytag th a:hover {
+     color: black;
+     text-decoration: underline;
+}
+
+.displaytag th.sorted a, .displaytag th.sortable a {
+     background-position: right center;
+     background-repeat: no-repeat;
+     width: 100%;
+}
+
+.displaytag th.sortable a {
+     background-image: url("../img/arrow_off.png");
+    padding-right: 10px;
+}
+
+.displaytag th.order1 a {
+     background-image: url("../img/arrow_down.png");
+padding-right: 10px;
+}
+
+.displaytag th.order2 a {
+     background-image: url("../img/arrow_up.png");
+padding-right: 10px;
+}
+
+.displaytag tr.odd {
+     background-color: #FFFFFF;
+}
+
+.displaytag tr.tableRowEven, .displaytag tr.even {
+     background-color: #FFEEAA;
+}
+
+.displaytag div.exportlinks {
+     background-color: #EEEEEE;
+     border: 1px dotted #999999;
+     margin: 2px 0px 10px;
+     padding: 2px 4px;
+     width: 95%;
+}
+
+.displaytag span.export {
+     cursor: pointer;
+     display: inline-block;
+     padding: 0px 4px 1px 20px;
+}
+
+.displaytag span.excel {
+     background-image: url("../img/ico_file_excel.png");
+     background-repeat: no-repeat;
+}
+
+.displaytag span.csv {
+     background-image: url("../img/ico_file_csv.png");
+     background-repeat: no-repeat;
+}
+
+.displaytag span.xml {
+     background-image: url("../img/ico_file_xml.png");
+     background-repeat: no-repeat;
+}
+
+.displaytag span.pdf {
+     background-image: url("../img/ico_file_pdf.png");
+     background-repeat: no-repeat;
+}
+
+.displaytag span.rtf {
+     background-image: url("../img/ico_file_rtf.png");
+     background-repeat: no-repeat;
+}
+
+span.pagebanner {
+     display: block;
+     font-family: Arial,Verdana,sans-serif;
+     font-size: 14px;
+     margin-top: 10px;
+     padding: 2px 4px;
+     width: 95%;
+}
+
+span.pagelinks {
+     display: block;
+     font-family: Arial,Verdana,sans-serif;
+     font-size: 14px;
+     margin-bottom: -5px;
+     padding: 2px 4px;
+     width: 95%;
+}
