@@ -54,7 +54,7 @@
 
 	<scm>
         <connection>scm:hg:https://code.google.com/p/valogato</connection>
-    </scm>	
+    </scm>
 
 <distributionManagement>
   <repository>
