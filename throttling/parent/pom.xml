@@ -4,7 +4,7 @@
 
 	<groupId>org.vhorvath.valogato</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>pom</packaging>
 	<name>throttling</name>
 	<url>http://maven.apache.org</url>
@@ -55,5 +55,18 @@
 	<scm>
         <connection>scm:hg:https://https://ric.flair.wcw:BA2fx9Vy4aX4@code.google.com/p/valogato</connection>
     </scm>	
-	
+
+<distributionManagement>
+  <repository>
+     <id>deployment</id>
+     <name>Internal Releases</name>
+     <url>http://localhost:8081/nexus/content/repositories/releases/</url>
+  </repository>
+  <snapshotRepository>
+     <id>deployment</id>
+     <name>Internal Releases</name>
+     <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+  </snapshotRepository>
+</distributionManagement>
+
 </project>
