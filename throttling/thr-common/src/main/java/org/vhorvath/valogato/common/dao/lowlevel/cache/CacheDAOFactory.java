@@ -2,8 +2,10 @@ package org.vhorvath.valogato.common.dao.lowlevel.cache;
 
 import org.vhorvath.valogato.common.beans.configuration.general.CacheBean;
 import org.vhorvath.valogato.common.constants.ThrConstants;
+import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.CoherenceCache;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.DummyCache;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.HazelcastCache;
+import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.MemcachedCache;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.TerracottaCache;
 import org.vhorvath.valogato.common.dao.lowlevel.configuration.general.GeneralConfigurationUtils;
 import org.vhorvath.valogato.common.exception.ThrottlingConfigurationException;
@@ -28,6 +30,10 @@ public final class CacheDAOFactory {
 				result = new TerracottaCache();
 			} else if (cacheBean.getType().equals(ThrConstants.CacheType.dummy.toString())) {
 				result = new DummyCache();
+			} else if (cacheBean.getType().equals(ThrConstants.CacheType.coherence.toString())) {
+				result = new CoherenceCache();
+			} else if (cacheBean.getType().equals(ThrConstants.CacheType.memcached.toString())) {
+				result = new MemcachedCache();
 			} else {
 				throw new ThrottlingConfigurationException(String.format("Uknown cache type in the configuration: %s!", cacheBean.getType()));
 			}

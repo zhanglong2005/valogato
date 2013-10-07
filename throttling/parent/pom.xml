@@ -37,12 +37,12 @@
 
 		<!-- simpleframework -->
 		<dependency>
-            <groupId>org.simpleframework</groupId>
-            <artifactId>simple-xml</artifactId>
-            <version>2.6.4</version>
-            <scope>provided</scope>
-        </dependency>
-		
+			<groupId>org.simpleframework</groupId>
+			<artifactId>simple-xml</artifactId>
+			<version>2.6.4</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- google -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -53,20 +53,20 @@
 	</dependencies>
 
 	<scm>
-        <connection>scm:hg:https://code.google.com/p/valogato</connection>
-    </scm>
+		<connection>scm:hg:https://code.google.com/p/valogato</connection>
+	</scm>
 
-<distributionManagement>
-  <repository>
-     <id>deployment</id>
-     <name>Internal Releases</name>
-     <url>http://localhost:8081/nexus/content/repositories/releases/</url>
-  </repository>
-  <snapshotRepository>
-     <id>deployment</id>
-     <name>Internal Releases</name>
-     <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
-  </snapshotRepository>
-</distributionManagement>
+	<distributionManagement>
+		<repository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>deployment</id>
+			<name>Internal Releases</name>
+			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 </project>

@@ -5,9 +5,16 @@
 			<module name="org.vhorvath.valogato.config" />
 			<module name="org.vhorvath.valogato.cache.hazelcast.client" />
 			<module name="org.vhorvath.valogato.logging" />
+			<module name="org.vhorvath.valogato.cache.memcached-java-client.client" />
 			<module name="net.sf.ehcache" />			
 			<module name="com.google.gson" />
 			<module name="com.google.guava" />
+			<module name="com.oracle.coherence"/>
+			<system export="true">
+                <paths>
+                    <path name="sun/rmi/server"/>
+                </paths>
+            </system>
 		</dependencies>
 
 		<exclusions>

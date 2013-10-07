@@ -25,6 +25,7 @@ public class LoadBackendServiceConfigAction extends ThrottlingActionSupport {
 			} else if (e.getErrors() != null) {
 				setConfigurationErrorMessage(e.getErrors());
 			} else {
+				LOGGER.error("Unexpected exception occurred!", e);
 				setConfigurationErrorMessage(e.getMessage());
 			}
 		} finally {

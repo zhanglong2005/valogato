@@ -4,6 +4,8 @@
 		<dependencies>
 			<module name="org.vhorvath.valogato.config" />
 			<module name="org.vhorvath.valogato.cache.hazelcast.client" />
+ 			<module name="org.vhorvath.valogato.cache.memcached-java-client.client" />
+			<module name="com.oracle.coherence" />
 			<module name="org.vhorvath.valogato.logging" />
 			<module name="net.sf.ehcache" />
 			<module name="com.google.gson" />

@@ -74,7 +74,10 @@ public final class ThrConstants {
 	public enum CacheType {
 		hazelcast("Hazelcast"),
 		terracotta("Terracotta"),
-		dummy("Dummy");
+		dummy("Dummy"),
+		coherence("Coherence"),
+		infinispan("Infinispan"), 
+		memcached("Memcached");
 
 		private String name;
 		private CacheType(String name) { this.name = name; }

@@ -53,11 +53,16 @@ public class ThrottlingParameterLoggerInterceptor implements Interceptor {
 		
 		String result = null;
 		try {
+
 			result = invocation.invoke();
 			return result;
-
 			
-		} finally {
+		} catch(Exception e) {
+			LOGGER.error("Unexpected exception occurred!", e);
+			throw e;
+		}
+		
+		finally {
 
 			logBuffer.append("Action values: [");
 			for(Method method : invocation.getAction().getClass().getDeclaredMethods()) {

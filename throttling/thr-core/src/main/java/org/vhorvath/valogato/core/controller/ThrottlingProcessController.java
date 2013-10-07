@@ -165,13 +165,13 @@ public class ThrottlingProcessController<RQ, RS, EX extends Exception> implement
 				}
 			}
 		} finally {
+			LOGGER.info(String.format("# The method ThrController.processRequest has finished. backendServiceNames = %s, " +
+					"requestId = %s, simulatedServiceName = %s", backendServiceName, requestId, simulatedServiceName));
 			try {
 				ThrottlingStorage.removeAll();
 			} finally {
 				MDC.remove("reqId");
 			}
-			LOGGER.info(String.format("# The method ThrController.processRequest has finished. backendServiceNames = %s, " +
-					"requestId = %s, simulatedServiceName = %s", backendServiceName, requestId, simulatedServiceName));
 		}
 	}
 	
@@ -182,6 +182,9 @@ public class ThrottlingProcessController<RQ, RS, EX extends Exception> implement
                                           String backendServiceName,
                                           String simulatedServiceName,
                                           BackendServiceBean backendServiceBean) throws EX {
+		// TODO using {} instead of String.format(...)
+//		LOGGER.info("# The method ThrController.processRequestAfterSleeping has been called! backendServiceNames = {}, " +
+//				"requestId = {}, simulatedServiceName = {}", backendServiceName, requestId, simulatedServiceName);
 		LOGGER.info(String.format("# The method ThrController.processRequestAfterSleeping has been called! backendServiceNames = %s, " +
 				"requestId = %s, simulatedServiceName = %s", backendServiceName, requestId, simulatedServiceName));
 		

@@ -28,6 +28,19 @@ public final class ThrottlingUtils {
 		}
 	}
 	
+	
+	public static <T> T get(String value, Class<T> clazz) {
+		if (clazz == String[].class) {
+			return clazz.cast(value.split(","));
+		} if (clazz == Boolean.class) {
+			return clazz.cast(value.equalsIgnoreCase("true") ? true : false);
+		} if (clazz == Integer.class) {
+			return clazz.cast(Integer.valueOf(value));
+		} else {
+			return null;
+		}
+	}
+	
 
 	public static String getWaitingReqListKey(int ind) {
 		return ThrConstants.PREFIX_WAITING_REQ_LIST + ind;
