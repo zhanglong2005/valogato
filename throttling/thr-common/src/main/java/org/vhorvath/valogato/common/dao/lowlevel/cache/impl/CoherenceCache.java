@@ -95,20 +95,22 @@ public class CoherenceCache implements ICache {
 	}
 
 	
-	private synchronized NamedCache getCache() throws ThrottlingConfigurationException {
+	private NamedCache getCache() throws ThrottlingConfigurationException {
 		if (ThrottlingStorage.getCache() == null) {
 			// getting the cache
 			String cacheName = GeneralConfigurationUtils.getCache().getParams().get("distributedCacheName");
-			CacheFactory.ensureCluster();
-			final NamedCache cache = CacheFactory.getCache(cacheName);
-			AbstractStoredCache storedCache = new AbstractStoredCache() {
-				@Override
-				public void shutdown() {
-					CacheFactory.releaseCache(cache);
-				}
-			};
-			storedCache.setCache(cache);
-			ThrottlingStorage.setCache(storedCache);
+			synchronized (CacheFactory.class) {
+				CacheFactory.ensureCluster();
+				final NamedCache cache = CacheFactory.getCache(cacheName);
+				AbstractStoredCache storedCache = new AbstractStoredCache() {
+					@Override
+					public void shutdown() {
+						CacheFactory.releaseCache(cache);
+					}
+				};
+				storedCache.setCache(cache);
+				ThrottlingStorage.setCache(storedCache);
+			}
 		}
 		return (NamedCache)ThrottlingStorage.getCache().getCache();
 	}
