@@ -286,9 +286,10 @@ public class MemoryWaitingReqDAO implements IWaitingReqDAO {
 				CacheDAOFactory.getCache().put(modifiableKey, Collections.synchronizedSet(new LinkedHashSet<String>()));
 			}
 			// increase the first value of CACHE_WAITING_REQ_FIRST_LAST_LIST
-			Integer nextListNumber = getNextListNumber(bean.getFirst(), waitingReqListMaxSize, maxNumberOfWaitingReqs);
+			Integer nextListNumber = bean.getFirst();
 			// the first cannot be bigger then the last
 			if (bean.getFirst().intValue() != bean.getLast().intValue()) {
+				nextListNumber = getNextListNumber(bean.getFirst(), waitingReqListMaxSize, maxNumberOfWaitingReqs);
 				bean.setFirst(nextListNumber);
 				CacheDAOFactory.getCache().put(ThrottlingUtils.getWaitingReqFirstLastKey(), bean);
 			}
