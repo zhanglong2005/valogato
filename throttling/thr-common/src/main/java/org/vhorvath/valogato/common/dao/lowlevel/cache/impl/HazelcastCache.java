@@ -19,6 +19,7 @@ import com.hazelcast.client.ClientConfig;
 import com.hazelcast.client.ClientConfigBuilder;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.Instance;
+import com.tangosol.net.CacheFactory;
 
 
 /**
@@ -108,31 +109,33 @@ public class HazelcastCache implements ICache {
 	}
 
 	
-	public void shutdown() throws ThrottlingConfigurationException {
-		getHazelcastInstance().shutdown();
-	}
+//	public void shutdown() throws ThrottlingConfigurationException {
+//		getHazelcastInstance().shutdown();
+//	}
 
 	
 	private synchronized HazelcastClient getHazelcastInstance() throws ThrottlingConfigurationException {
 		if (ThrottlingStorage.getCache() == null) {
 			// creating the HazelcastClient
-			ClientConfigBuilder builder = null;
-			try {
-				builder = new ClientConfigBuilder(ThrConstants.PATH_HAZELCAST_CLIENT_CONFIG_FILE);
-			} catch (IOException e) {
-				throw new ThrottlingConfigurationException(String.format("The file %s cannot be found!", ThrConstants.PATH_HAZELCAST_CLIENT_CONFIG_FILE), e);
-			}
-			ClientConfig clientConfig = builder.build();
-			// adding it to the ThreadLocal
-			final HazelcastClient hazelcastClient = HazelcastClient.newHazelcastClient(clientConfig);
-			AbstractStoredCache storedCache = new AbstractStoredCache() {
-				@Override
-				public void shutdown() {
-					hazelcastClient.shutdown();
+			synchronized (ClientConfigBuilder.class) {
+				ClientConfigBuilder builder = null;
+				try {
+					builder = new ClientConfigBuilder(ThrConstants.PATH_HAZELCAST_CLIENT_CONFIG_FILE);
+				} catch (IOException e) {
+					throw new ThrottlingConfigurationException(String.format("The file %s cannot be found!", ThrConstants.PATH_HAZELCAST_CLIENT_CONFIG_FILE), e);
 				}
-			};
-			storedCache.setCache(hazelcastClient);
-			ThrottlingStorage.setCache(storedCache);
+				ClientConfig clientConfig = builder.build();
+				// adding it to the ThreadLocal
+				final HazelcastClient hazelcastClient = HazelcastClient.newHazelcastClient(clientConfig);
+				AbstractStoredCache storedCache = new AbstractStoredCache() {
+					@Override
+					public void shutdown() {
+						hazelcastClient.shutdown();
+					}
+				};
+				storedCache.setCache(hazelcastClient);
+				ThrottlingStorage.setCache(storedCache);
+			}
 		}
 		return (HazelcastClient)ThrottlingStorage.getCache().getCache();
 	}

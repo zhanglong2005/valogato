@@ -13,6 +13,7 @@ import org.vhorvath.valogato.common.constants.ThrConstants;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.ICache;
 import org.vhorvath.valogato.common.dao.lowlevel.configuration.general.GeneralConfigurationUtils;
 import org.vhorvath.valogato.common.exception.ThrottlingConfigurationException;
+import org.vhorvath.valogato.common.exception.ThrottlingRuntimeException;
 import org.vhorvath.valogato.common.utils.AbstractStoredCache;
 import org.vhorvath.valogato.common.utils.ThrottlingStorage;
 import org.vhorvath.valogato.common.utils.ThrottlingUtils;
@@ -31,6 +32,7 @@ public class MemcachedCache implements ICache {
 	static {
 		//http://grepcode.com/file/repo1.maven.org/maven2/com.whalin/Memcached-Java-Client/3.0.1/com/whalin/MemCached/SockIOPool.java?av=f
 		try {
+			LOGGER.info("Initialization of SockIOPool is starting...");
 	        SockIOPool pool = SockIOPool.getInstance("Throttling_pool");
 	        pool.setServers( ThrottlingUtils.get(GeneralConfigurationUtils.getCache().getParams().get("servers"), String[].class) );
 	        pool.setHashingAlg( getHashingAlg(GeneralConfigurationUtils.getCache().getParams().get("hashingAlg")) );
@@ -39,14 +41,13 @@ public class MemcachedCache implements ICache {
 	        pool.setMinConn( ThrottlingUtils.get(GeneralConfigurationUtils.getCache().getParams().get("minConn"), Integer.class) );
 	        pool.setMaxConn( ThrottlingUtils.get(GeneralConfigurationUtils.getCache().getParams().get("maxConn"), Integer.class) );
 	        pool.setMaintSleep( ThrottlingUtils.get(GeneralConfigurationUtils.getCache().getParams().get("maintSleep"), Integer.class) );
-	//        pool.setNagle( true );
 	        // socket timeout
 	        pool.setSocketTO( ThrottlingUtils.get(GeneralConfigurationUtils.getCache().getParams().get("socketTO"), Integer.class) );
 	        pool.setAliveCheck( ThrottlingUtils.get(GeneralConfigurationUtils.getCache().getParams().get("aliveCheck"), Boolean.class) );
 	        
 	        pool.initialize();
 		} catch(Exception e) {
-			LOGGER.error("Initialization of MemcachedCache was not successful!", e);
+			LOGGER.error("Initialization of SockIOPool was not successful!", e);
 		}
 	}
 
@@ -59,26 +60,11 @@ public class MemcachedCache implements ICache {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				LOGGER.trace(String.format("####### MemcachedCache.lock(%s)...", key), e);
+				throw new RuntimeException(e);
 			}
 		}
+		
 		LOGGER.trace(String.format("####### Getting the MemcachedCache.lock(%s) was successful!", key));
-	}
-
-	
-	private static int getHashingAlg(String hashingAlgText) throws ThrottlingConfigurationException {
-		if (hashingAlgText == null) {
-			return SockIOPool.CONSISTENT_HASH;
-		} else if (hashingAlgText.equals("CONSISTENT_HASH")) {
-			return SockIOPool.CONSISTENT_HASH;
-		} else if (hashingAlgText.equals("OLD_COMPAT_HASH")) {
-			return SockIOPool.OLD_COMPAT_HASH;
-		} else if (hashingAlgText.equals("NEW_COMPAT_HASH")) {
-			return SockIOPool.NEW_COMPAT_HASH;
-		} else if (hashingAlgText.equals("NATIVE_HASH")) {
-			return SockIOPool.NATIVE_HASH;
-		}
-		throw new ThrottlingConfigurationException(String.format("Incorert hashingAlg text in the configuration file! The correct values: %s, %s, %s, %s", 
-				SockIOPool.NATIVE_HASH, SockIOPool.OLD_COMPAT_HASH, SockIOPool.NEW_COMPAT_HASH, SockIOPool.CONSISTENT_HASH));
 	}
 
 
@@ -107,8 +93,7 @@ public class MemcachedCache implements ICache {
 					value = gson.fromJson(json, type);
 					return value;
 				} catch(ClassCastException cce) {
-					throw new ThrottlingConfigurationException(String.format("The type of the element '%s' is not %s! it was: %s", 
-							key, type, map.get(ThrConstants.CACHE_KEY_FOR_VALUE).getClass()), cce);
+					throw new ThrottlingConfigurationException(String.format("The type of the element '%s' is not %s! The json value is: %s", key, type, json), cce);
 				}
 			}
 		} finally {
@@ -176,22 +161,62 @@ public class MemcachedCache implements ICache {
 	}
 
 	
-	public void shutdown() throws ThrottlingConfigurationException {
-	}
-
-	
-	private synchronized MemCachedClient getMemcachedInstance() throws ThrottlingConfigurationException {
+	private MemCachedClient getMemcachedInstance() throws ThrottlingConfigurationException {
 		if (ThrottlingStorage.getCache() == null) {
 			// creating the memcached client
 			// adding it to the ThreadLocal
-			AbstractStoredCache storedCache = new AbstractStoredCache() {
-				@Override
-				public void shutdown() { }
-			};
-			storedCache.setCache(new MemCachedClient("Throttling_pool"));
-			ThrottlingStorage.setCache(storedCache);
+			synchronized (AbstractStoredCache.class) {
+				AbstractStoredCache storedCache = new AbstractStoredCache() {
+					@Override
+					public void shutdown() { }
+				};
+				storedCache.setCache(new MemCachedClient("Throttling_pool"));
+				ThrottlingStorage.setCache(storedCache);
+			}
 		}
-		return (MemCachedClient)ThrottlingStorage.getCache().getCache();
+		// TODO somehow the status of the servers can be checked. I did that on Virgin machine
+		MemCachedClient client = (MemCachedClient)ThrottlingStorage.getCache().getCache();
+    	checkServersStatuses(client);
+		return client;
+	}
+
+
+	private void checkServersStatuses(MemCachedClient client) throws ThrottlingConfigurationException {
+		Map<String, Map<String, String>> status = client.statsSlabs();
+    	String[] servers = ThrottlingUtils.get(GeneralConfigurationUtils.getCache().getParams().get("servers"), String[].class);
+    	boolean oneServerRunning = false;
+    	List<String> notRunningServers = new ArrayList<String>();
+    	
+    	for(int i = 0; i < servers.length; i++) {
+    		if (status.get(servers[i]) == null) {
+    			notRunningServers.add(servers[i]);
+    		} else {
+    			oneServerRunning = true;
+    		}
+    	}
+
+    	if (!oneServerRunning) {
+    		throw new RuntimeException("None of the memcached servers is running! Defined servers:"+ThrottlingUtils.commaSeparated(notRunningServers.toArray(new String[0])));
+    	} else if (notRunningServers.size() > 0) {
+    		LOGGER.warn("Warning! Some of the defined Memcached servers is not running: " + ThrottlingUtils.commaSeparated(notRunningServers.toArray(new String[0])));
+    	}
+	}
+
+	
+	private static int getHashingAlg(String hashingAlgText) throws ThrottlingConfigurationException {
+		if (hashingAlgText == null) {
+			return SockIOPool.CONSISTENT_HASH;
+		} else if (hashingAlgText.equals("CONSISTENT_HASH")) {
+			return SockIOPool.CONSISTENT_HASH;
+		} else if (hashingAlgText.equals("OLD_COMPAT_HASH")) {
+			return SockIOPool.OLD_COMPAT_HASH;
+		} else if (hashingAlgText.equals("NEW_COMPAT_HASH")) {
+			return SockIOPool.NEW_COMPAT_HASH;
+		} else if (hashingAlgText.equals("NATIVE_HASH")) {
+			return SockIOPool.NATIVE_HASH;
+		}
+		throw new ThrottlingConfigurationException(String.format("Incorert hashingAlg text in the configuration file! The correct values: %s, %s, %s, %s", 
+				SockIOPool.NATIVE_HASH, SockIOPool.OLD_COMPAT_HASH, SockIOPool.NEW_COMPAT_HASH, SockIOPool.CONSISTENT_HASH));
 	}
 
 }
