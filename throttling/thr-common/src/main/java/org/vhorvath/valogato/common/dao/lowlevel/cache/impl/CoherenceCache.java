@@ -26,7 +26,7 @@ public class CoherenceCache implements ICache {
 	
 	public void lock(String key) throws ThrottlingConfigurationException {
 		LOGGER.trace(String.format("####### CoherenceCache.lock(%s)...", key));
-		getCache().lock(key);
+		getCache().lock(key, -1);
 		LOGGER.trace(String.format("####### Getting the CoherenceCache.lock(%s) was successful!", key));
 	}
 
@@ -105,7 +105,8 @@ public class CoherenceCache implements ICache {
 				AbstractStoredCache storedCache = new AbstractStoredCache() {
 					@Override
 					public void shutdown() {
-						CacheFactory.releaseCache(cache);
+						//CacheFactory.releaseCache(cache);
+						//cache.release();
 					}
 				};
 				storedCache.setCache(cache);
