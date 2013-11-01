@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>org.vhorvath.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>thr-core</artifactId>
-  <version>1.1-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>thr-core</name>
 
 	<properties>
@@ -22,12 +22,6 @@
 			<groupId>org.vhorvath.valogato</groupId>
 			<artifactId>thr-common</artifactId>
 			<version>1.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.0.13</version>
-		    <scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -55,20 +49,4 @@
 		</plugins>
 	</build>
 
-	<scm>
-		<connection>scm:hg:https://code.google.com/p/valogato</connection>
-	</scm>
-
-	<distributionManagement>
-		<repository>
-			<id>deployment</id>
-			<name>Internal Releases</name>
-			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>deployment</id>
-			<name>Internal Releases</name>
-			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>

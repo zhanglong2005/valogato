@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.vhorvath.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0</version>
+		<version>1.1-SNAPSHOT</version>
 		<relativePath />
 	</parent>
 
@@ -20,6 +20,16 @@
 	</properties>
 
 	<dependencies>
+
+		<!-- google -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.3</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- ************************ cache dependencies ************************ -->
 		<!-- ehcache -->
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
@@ -57,44 +67,6 @@
 			<version>3.0.2</version>
 			<scope>provided</scope>
 		</dependency>
-		
-		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.0.13</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- google -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.2.3</version>
-			<scope>provided</scope>
-		</dependency>
 	</dependencies>
-
-	<scm>
-		<connection>scm:hg:https://code.google.com/p/valogato</connection>
-	</scm>
-
-	<distributionManagement>
-		<repository>
-			<id>deployment</id>
-			<name>Internal Releases</name>
-			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>deployment</id>
-			<name>Internal Releases</name>
-			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 </project>
