@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ehcache>
+  <cache name="LOCAL_THROTTLING_DISTRIBUTED_STORE"
+         maxElementsInMemory="500" 
+         eternal="true" 
+         memoryStoreEvictionPolicy="LRU" />
+</ehcache>

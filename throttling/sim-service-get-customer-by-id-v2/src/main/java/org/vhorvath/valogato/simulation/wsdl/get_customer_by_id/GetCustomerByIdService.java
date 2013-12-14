@@ -1,4 +1,4 @@
-package org.vhorvath.valogato.simulation.wsdl.get_customer_by_id_v2;
+package org.vhorvath.valogato.simulation.wsdl.get_customer_by_id;
 
 
 import javax.ejb.Remote;
@@ -18,12 +18,12 @@ import org.vhorvath.valogato.common.controller.IThrottlingController;
 import org.vhorvath.valogato.common.simulation.ISimulatedService;
 import org.vhorvath.valogato.core.controller.ThrottlingProcessController;
 
-import vhorvath.throttling.simulation.wsdl.get_customer_by_id_v2.GetByIdFault_Exception;
-import vhorvath.throttling.simulation.wsdl.get_customer_by_id_v2.GetByIdRequest;
-import vhorvath.throttling.simulation.wsdl.get_customer_by_id_v2.GetByIdResponse;
-import vhorvath.throttling.simulation.wsdl.get_customer_by_id_v2.GetCustomerById;
-import vhorvath.throttling.simulation.wsdl.get_customer_by_id_v2.ObjectFactory;
-import vhorvath.throttling.simulation.wsdl.get_customer_by_id_v2.ThrottlingSimulatedPortType;
+import vhorvath.throttling.simulation.wsdl.get_customer_by_id.GetByIdFault_Exception;
+import vhorvath.throttling.simulation.wsdl.get_customer_by_id.GetByIdRequest;
+import vhorvath.throttling.simulation.wsdl.get_customer_by_id.GetByIdResponse;
+import vhorvath.throttling.simulation.wsdl.get_customer_by_id.GetCustomerById;
+import vhorvath.throttling.simulation.wsdl.get_customer_by_id.ObjectFactory;
+import vhorvath.throttling.simulation.wsdl.get_customer_by_id.ThrottlingSimulatedPortType;
 
 
 /**
@@ -31,14 +31,14 @@ import vhorvath.throttling.simulation.wsdl.get_customer_by_id_v2.ThrottlingSimul
  * 
  * @author Viktor Horvath
  */
-@WebService(targetNamespace = "urn:vhorvath:throttling:simulation:wsdl:get-customer-by-id-v2", 
+@WebService(targetNamespace = "urn:vhorvath:throttling:simulation:wsdl:get-customer-by-id", 
             name = "ThrottlingSimulatedPortType",
             serviceName = "GetCustomerById")
 @XmlSeeAlso({ObjectFactory.class})
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @Remote(ThrottlingSimulatedPortType.class)
 @Stateless
-public class GetCustomerByIdService_V2 implements ThrottlingSimulatedPortType, 
+public class GetCustomerByIdService implements ThrottlingSimulatedPortType, 
 		ISimulatedService<GetByIdRequest, GetByIdResponse, GetByIdFault_Exception> {
 
 	
@@ -49,11 +49,11 @@ public class GetCustomerByIdService_V2 implements ThrottlingSimulatedPortType,
 	
 	
 	@WebResult(name = "GetByIdResponse", 
-			   targetNamespace = "urn:vhorvath:throttling:simulation:wsdl:get-customer-by-id-v2", 
+			   targetNamespace = "urn:vhorvath:throttling:simulation:wsdl:get-customer-by-id", 
 			   partName = "bodyOutput")
 	@WebMethod
 	public GetByIdResponse getById(@WebParam(partName = "bodyInput",name = "GetByIdRequest",targetNamespace = 
-			"urn:vhorvath:throttling:simulation:wsdl:get-customer-by-id-v2") GetByIdRequest request) 
+			"urn:vhorvath:throttling:simulation:wsdl:get-customer-by-id") GetByIdRequest request) 
 			throws GetByIdFault_Exception {
 		
 		IThrottlingController<GetByIdRequest, GetByIdResponse, GetByIdFault_Exception> controller = new ThrottlingProcessController<GetByIdRequest, GetByIdResponse, GetByIdFault_Exception>();

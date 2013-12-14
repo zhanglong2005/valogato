@@ -20,6 +20,7 @@ public final class GeneralConfigurationUtils {
 	
 	// TODO Adding a button to the web app to reload the general configuration
 	private static GeneralConfigurationBean generalConfiguration = null;
+	private static final Object MONITOR = new Object();
 	
 	
 	private GeneralConfigurationUtils() { }
@@ -89,21 +90,25 @@ public final class GeneralConfigurationUtils {
 	}
 
 	
-	private static synchronized void init() throws ThrottlingConfigurationException {
+	private static void init() throws ThrottlingConfigurationException {
 		if (generalConfiguration == null) {
-			Serializer serializer = new Persister();
-	
-			try {
-				InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(ThrConstants.PATH_GENERAL_CONFIG_XML);
-				if (in == null) {
-					throw new ThrottlingConfigurationException(String.format("The general configuration XML cannot be read! path=%s",
-							ThrConstants.PATH_GENERAL_CONFIG_XML));					
+			synchronized (MONITOR) {
+				if (generalConfiguration == null) {
+					Serializer serializer = new Persister();
+					
+					try {
+						InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(ThrConstants.PATH_GENERAL_CONFIG_XML);
+						if (in == null) {
+							throw new ThrottlingConfigurationException(String.format("The general configuration XML cannot be read! path=%s",
+									ThrConstants.PATH_GENERAL_CONFIG_XML));					
+						}
+						generalConfiguration = serializer.read(GeneralConfigurationBean.class, in);
+					} catch(ThrottlingConfigurationException tce) {
+						throw tce;
+					} catch(Exception e) {
+						throw new ThrottlingConfigurationException("The general configuration XML is incorrect!", e);
+					}
 				}
-				generalConfiguration = serializer.read(GeneralConfigurationBean.class, in);
-			} catch(ThrottlingConfigurationException tce) {
-				throw tce;
-			} catch(Exception e) {
-				throw new ThrottlingConfigurationException("The general configuration XML is incorrect!", e);
 			}
 		}
 	}

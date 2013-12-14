@@ -77,7 +77,8 @@ public final class ThrConstants {
 		dummy("Dummy"),
 		coherence("Coherence"),
 		infinispan("Infinispan"), 
-		memcached("Memcached");
+		memcached("Memcached"),
+		localCache("LocalCache");
 
 		private String name;
 		private CacheType(String name) { this.name = name; }

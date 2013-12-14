@@ -1,6 +1,7 @@
 package org.vhorvath.valogato.common.dao.lowlevel.cache.impl;
 
 
+import java.net.URL;
 import java.util.List;
 
 import net.sf.ehcache.Cache;
@@ -11,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vhorvath.valogato.common.constants.ThrConstants;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.ICache;
-import org.vhorvath.valogato.common.dao.lowlevel.configuration.general.GeneralConfigurationUtils;
 import org.vhorvath.valogato.common.exception.ThrottlingConfigurationException;
 
 import com.google.gson.Gson;
@@ -20,25 +20,27 @@ import com.google.gson.Gson;
 /**
  * @author Viktor Horvath
  */
-public class TerracottaCache implements ICache {
+public class LocalCache implements ICache {
 
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ThrConstants.THROTTLING_NAME);
+	private static final String LOCAL_CACHE_NAME = "LOCAL_THROTTLING_DISTRIBUTED_STORE";
+
 	
 	public void lock(String key) throws ThrottlingConfigurationException {
-		LOGGER.trace(String.format("####### TerracottaCache.lock(%s)...", key));
+		LOGGER.trace(String.format("####### LocalCache.lock(%s)...", key));
 		getCache().acquireWriteLockOnKey(key);
-		LOGGER.trace(String.format("####### Getting the TerracottaCache.lock(%s) was successful!", key));
+		LOGGER.trace(String.format("####### Getting the LocalCache.lock(%s) was successful!", key));
 	}
-	
 
+	
 	public void unlock(String key) throws ThrottlingConfigurationException {
-		LOGGER.trace(String.format("####### TerracottaCache.unlock(%s)", key));
+		LOGGER.trace(String.format("####### LocalCache.unlock(%s)", key));
 		
 		try {
 			getCache().releaseWriteLockOnKey(key);
 		} catch(Exception e) {
-			LOGGER.warn(String.format("####### The Terracotta lock cannot be released! key = %s, reason = %s", key, ""+e));
+			LOGGER.warn(String.format("####### The LocalCache lock cannot be released! key = %s, reason = %s", key, ""+e));
 		}
 	}
 
@@ -61,23 +63,23 @@ public class TerracottaCache implements ICache {
 				}
 			}
 		} finally {
-			LOGGER.trace(String.format("####### TerracottaCache.get(%s, %s) = %s", key, type, value));
+			LOGGER.trace(String.format("####### LocalCache.get(%s, %s) = %s", key, type, value));
 		}
 	}
 
 	
 	public void put(String key, Object value) throws ThrottlingConfigurationException {
+		LOGGER.trace(String.format("####### LocalCache.put(%s, %s)", key, value));
 		// serialize to JSON
 		Gson gson = new Gson();
 		String jsonString = gson.toJson(value);
-		LOGGER.trace(String.format("####### TerracottaCache.put(%s, %s)", key, jsonString));
-		// put into the cache
+		// put into the cache		
 		getCache().put(new Element(key, jsonString));
 	}
-
+	
 	
 	public List<String> getKeys() throws ThrottlingConfigurationException {
-		LOGGER.trace("####### TerracottaCache.getKeys()");
+		LOGGER.trace("####### LocalCache.getKeys()");
 		List<String> keys = getCache().getKeys();
 		LOGGER.trace("####### keys="+keys);
 		return keys;
@@ -85,21 +87,19 @@ public class TerracottaCache implements ICache {
 
 	
 	public void remove(String key) throws ThrottlingConfigurationException {
-		LOGGER.trace(String.format("####### TerracottaCache.remove(%s)", key));
-		
+		LOGGER.trace(String.format("####### LocalCache.remove(%s)", key));
 		getCache().remove(key);
 	}
 
 	
 	private Cache getCache() throws ThrottlingConfigurationException {
-		CacheManager manager = CacheManager.create();
-		String cacheName = GeneralConfigurationUtils.getCache().getParams().get("distributedCacheName");
-		if (cacheName == null) {
-			throw new ThrottlingConfigurationException("The param distributedCacheName is not defined for the Terracotta cache in ConfigurationGeneral.xml! e.g. <cache type=\"Terracotta\"><param name=\"distributedCacheName\">THROTTLING_DISTRIBUTED_STORE</param></cache>");
-		}
-		Cache cache = manager.getCache(cacheName);
+		// the name of the ehcache should be able to be configured in the general config XML
+		URL url = getClass().getResource("/valogato_local_ehcache.xml");
+		CacheManager manager = CacheManager.create(url);
+		
+		Cache cache = manager.getCache(LOCAL_CACHE_NAME);
 		return cache;
 	}
 
-
+	
 }

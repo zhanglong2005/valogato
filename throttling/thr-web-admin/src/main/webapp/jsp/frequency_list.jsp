@@ -46,11 +46,11 @@
                         <s:url id="resetFrequencyUrl" action="reset_frequency.action">
                            <s:param name="nameBackendService" value="#attr.row.nameBackendService" />
                         </s:url>
-                        <s:a href="%{resetFrequencyUrl}" theme="simple" id="command_link">Reset Fr.</s:a>&nbsp;&nbsp;&nbsp;
+                        <s:a href="%{resetFrequencyUrl}" theme="simple" id="command_link" onclick="return confirm('Are you sure you want to reset the frequency?')">Reset Fr.</s:a>&nbsp;&nbsp;&nbsp;
                         <s:url id="resetSleepingReqUrl" action="reset_sleepingreq.action">
                            <s:param name="nameBackendService" value="#attr.row.nameBackendService" />
                         </s:url>
-                        <s:a href="%{resetSleepingReqUrl}" theme="simple" id="command_link">Reset S. req.</s:a>
+                        <s:a href="%{resetSleepingReqUrl}" theme="simple" id="command_link" onclick="return confirm('Are you sure you want to reset the sleeping requests?')">Reset S. req.</s:a>
                      </jmesa:htmlColumn>
                   </jmesa:htmlRow> 
                </jmesa:htmlTable> 
@@ -64,12 +64,12 @@
      <td>
         <span style="display: table-cell;">
            <s:form action="reset_all_frequency.action" method="post">
-              <s:submit value="Reset all Frequencies"/>
+              <s:submit value="Reset all Frequencies" onclick="return confirm('Are you sure you want to reset ALL the frequencies?')"/>
            </s:form>
         </span>
         <span style="display: table-cell;">
            <s:form action="reset_all_sleepingreq.action" method="post">
-              <s:submit value="Reset all Waiting request values"/>
+              <s:submit value="Reset all Waiting request values" onclick="return confirm('Are you sure you want to reset ALL the sleeping requests?')"/>
            </s:form>
         </span>
      </td>

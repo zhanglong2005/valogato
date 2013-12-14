@@ -8,9 +8,27 @@
 	<statisticsSource>CACHE</statisticsSource>
 	
 	<!--cache type="Hazelcast"/-->
-	<cache type="Terracotta">
+	<!--cache type="Terracotta">
 		<param name="distributedCacheName">THROTTLING_DISTRIBUTED_STORE</param>
-	</cache>
+	</cache-->
 	<!--cache type="Dummy"/-->
+	<!--cache type="Coherence">
+		<param name="distributedCacheName">THROTTLING_DISTRIBUTED_STORE</param>
+	</cache-->
+	<!--cache type="Memcached">
+		<param name="servers">localhost:11241,localhost:11242</param>
+		<param name="hashingAlg">CONSISTENT_HASH</param>
+		<param name="failover">true</param>
+		<param name="initConn">10</param>
+		<param name="minConn">5</param>
+		<param name="maxConn">1000</param>
+		<param name="maintSleep">30</param>
+		<param name="nagle">true</param>
+		<param name="socketTO">3000</param>
+		<param name="aliveCheck">false</param>
+	</cache-->
+	<cache type="LocalCache">
+		<param name="lockTimeout">15000</param>
+	</cache>
 	
 </generalConfiguration>

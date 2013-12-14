@@ -99,6 +99,9 @@ public class CoherenceCache implements ICache {
 		if (ThrottlingStorage.getCache() == null) {
 			// getting the cache
 			String cacheName = GeneralConfigurationUtils.getCache().getParams().get("distributedCacheName");
+			if (cacheName == null) {
+				throw new ThrottlingConfigurationException("The param distributedCacheName is not defined for the Coherence cache in ConfigurationGeneral.xml! e.g. <cache type=\"Coherence\"><param name=\"distributedCacheName\">THROTTLING_DISTRIBUTED_STORE</param></cache>");
+			}			
 			synchronized (CacheFactory.class) {
 				CacheFactory.ensureCluster();
 				final NamedCache cache = CacheFactory.getCache(cacheName);

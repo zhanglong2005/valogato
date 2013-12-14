@@ -10,7 +10,7 @@
 		<file>d:/Throttling_logback.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>Throttling_logback_%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>d:/Throttling_logback.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<!-- keep 30 days' worth of history -->
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
@@ -23,7 +23,7 @@
 	<appender name="FILE_WEB" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>d:/Throttling_Web_logback.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>Throttling_Web_logback_%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>d:/Throttling_Web_logback.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>

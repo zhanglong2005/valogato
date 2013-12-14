@@ -5,6 +5,7 @@ import org.vhorvath.valogato.common.constants.ThrConstants;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.CoherenceCache;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.DummyCache;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.HazelcastCache;
+import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.LocalCache;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.MemcachedCache;
 import org.vhorvath.valogato.common.dao.lowlevel.cache.impl.TerracottaCache;
 import org.vhorvath.valogato.common.dao.lowlevel.configuration.general.GeneralConfigurationUtils;
@@ -34,6 +35,8 @@ public final class CacheDAOFactory {
 				result = new CoherenceCache();
 			} else if (cacheBean.getType().equals(ThrConstants.CacheType.memcached.toString())) {
 				result = new MemcachedCache();
+			} else if (cacheBean.getType().equals(ThrConstants.CacheType.localCache.toString())) {
+				result = new LocalCache();
 			} else {
 				throw new ThrottlingConfigurationException(String.format("Uknown cache type in the configuration: %s!", cacheBean.getType()));
 			}

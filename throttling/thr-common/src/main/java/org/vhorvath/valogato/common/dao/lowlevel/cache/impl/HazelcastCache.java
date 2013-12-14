@@ -62,8 +62,8 @@ public class HazelcastCache implements ICache {
 					value = gson.fromJson(map.get(ThrConstants.CACHE_KEY_FOR_VALUE), type);
 					return value;
 				} catch(ClassCastException cce) {
-					throw new ThrottlingConfigurationException(String.format("The type of the element '%s' is not %s! it was: %s", 
-							key, type, map.get(ThrConstants.CACHE_KEY_FOR_VALUE).getClass()), cce);
+					throw new ThrottlingConfigurationException(String.format("The type of the element '%s' is not %s!", 
+							key, type), cce);
 				}
 			}
 		} finally {

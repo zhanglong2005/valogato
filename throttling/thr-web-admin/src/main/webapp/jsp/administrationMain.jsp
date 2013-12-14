@@ -29,7 +29,7 @@
       <td align="left"><b>Initialization:</b></td>
       <td align="right">
          <s:form action="administration_loadBackendServiceConfig.action" method="post">
-            <s:submit name="load" value="Start loading" theme="simple"/>
+            <s:submit name="load" value="Start loading" theme="simple" onclick="return confirm('Are you sure you want to (re)load the data?')"/>
          </s:form>
       </td>
    </tr>
@@ -66,7 +66,7 @@
       <td colspan="2" align="right" valign="top">
          <s:form action="administration_uploadNewBackendServiceConfig.action" method="post" enctype="multipart/form-data">
             <s:file name="upload" label="File"/>
-            <s:submit/>
+            <s:submit onclick="return confirm('Are you sure you want to (re)load the data?')"/>
          </s:form>
       </td>
    </tr>

@@ -28,7 +28,6 @@ public class MemcachedCache implements ICache {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ThrConstants.THROTTLING_NAME);
 	private static final String LOCK_PREFIX = "THROTTLING_8erqD4c_LOCK_";
 	
-//	private static final String[] servers = {"localhost:11241","localhost:11242"};
 	static {
 		//http://grepcode.com/file/repo1.maven.org/maven2/com.whalin/Memcached-Java-Client/3.0.1/com/whalin/MemCached/SockIOPool.java?av=f
 		try {
@@ -174,7 +173,6 @@ public class MemcachedCache implements ICache {
 				ThrottlingStorage.setCache(storedCache);
 			}
 		}
-		// TODO somehow the status of the servers can be checked. I did that on Virgin machine
 		MemCachedClient client = (MemCachedClient)ThrottlingStorage.getCache().getCache();
     	checkServersStatuses(client);
 		return client;

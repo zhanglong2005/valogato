@@ -14,7 +14,7 @@
    <tr>
       <td class="menu_group">Statistics</td>
    </tr>
-   <tr>
-      <td class="menu_group">Logs</td>
-   </tr>
+<!--    <tr> -->
+<!--       <td class="menu_group">Logs</td> -->
+<!--    </tr> -->
 </table>
