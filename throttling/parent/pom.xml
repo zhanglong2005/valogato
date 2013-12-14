@@ -4,7 +4,7 @@
 
 	<groupId>org.vhorvath.valogato</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>throttling</name>
 	<url>http://maven.apache.org</url>
@@ -12,11 +12,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<powermock.version>1.5</powermock.version>
-		<easymock.version>3.0</easymock.version>
-		<guava.version>14.0-rc1</guava.version>
-		<simpleframework.version>2.6.4</simpleframework.version>
-		<slf4j.version>1.7.5</slf4j.version>
-		<logback.version>1.0.13</logback.version>
 	</properties>
 
 	<dependencies>
@@ -36,64 +31,42 @@
 		<dependency>
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
-			<version>${easymock.version}</version>
+			<version>3.0</version>
 			<scope>test</scope>
 		</dependency>
 
 		<!-- simpleframework -->
 		<dependency>
-			<groupId>org.simpleframework</groupId>
-			<artifactId>simple-xml</artifactId>
-			<version>${simpleframework.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
+            <groupId>org.simpleframework</groupId>
+            <artifactId>simple-xml</artifactId>
+            <version>2.6.4</version>
+            <scope>provided</scope>
+        </dependency>
+		
 		<!-- google -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
-			<!--scope>provided</scope-->
-		</dependency>
-		
-		<!-- logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
+			<version>14.0-rc1</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		<!-- simpleframework -->
-		<dependency>
-			<groupId>org.simpleframework</groupId>
-			<artifactId>simple-xml</artifactId>
-			<version>${simpleframework.version}</version>
-		</dependency>
-		
 	</dependencies>
 
 	<scm>
-		<connection>scm:hg:https://code.google.com/p/valogato</connection>
-	</scm>
+        <connection>scm:hg:https://code.google.com/p/valogato</connection>
+    </scm>
 
-	<distributionManagement>
-		<repository>
-			<id>deployment</id>
-			<name>Internal Releases</name>
-			<url>http://localhost:8081/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>deployment</id>
-			<name>Internal Releases</name>
-			<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
+<distributionManagement>
+  <repository>
+     <id>deployment</id>
+     <name>Internal Releases</name>
+     <url>http://localhost:8081/nexus/content/repositories/releases/</url>
+  </repository>
+  <snapshotRepository>
+     <id>deployment</id>
+     <name>Internal Releases</name>
+     <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+  </snapshotRepository>
+</distributionManagement>
 
 </project>
