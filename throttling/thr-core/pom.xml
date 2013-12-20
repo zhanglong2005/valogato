@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.vhorvath.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>thr-core</artifactId>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>org.vhorvath.valogato</groupId>
 			<artifactId>thr-common</artifactId>
-			<version>1.1</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
