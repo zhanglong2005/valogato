@@ -7,7 +7,6 @@
 		<groupId>org.vhorvath.valogato</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.1-SNAPSHOT</version>
-		<relativePath />
 	</parent>
 
 	<artifactId>thr-common</artifactId>
@@ -20,7 +19,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- google -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

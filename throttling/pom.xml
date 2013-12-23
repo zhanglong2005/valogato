@@ -12,7 +12,6 @@
 		<groupId>org.vhorvath.valogato</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.1-SNAPSHOT</version>
-		<relativePath />
 	</parent>
 	
 	<properties>
@@ -26,6 +25,7 @@
 		<module>thr-web-admin</module>
 		<module>sim-wsdl-get-customer-by-id-v2</module>
 		<module>sim-service-get-customer-by-id-v2</module>
+		<module>standalone-builtin-client</module>
 	</modules>
 
 	<scm>
