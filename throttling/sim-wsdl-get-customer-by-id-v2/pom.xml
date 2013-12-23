@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.vhorvath.valogato.simulation.wsdl</groupId>
 	<artifactId>sim-wsdl-get-customer-by-id-v2</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>sim-wsdl-get-customer-by-id-v2</name>
 	
 	<parent>
@@ -44,9 +44,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-
-  <scm>
-    <tag>throttling-modules-1.1</tag>
-  </scm>
 </project>
