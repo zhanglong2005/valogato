@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.vhorvath.valogato.built-in-code</groupId>
 	<artifactId>standalone-builtin-client</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 	<name>standalone-builtin-client</name>
 
@@ -22,13 +21,13 @@
 		<dependency>
 			<groupId>org.vhorvath.valogato.simulation.wsdl</groupId>
 			<artifactId>sim-wsdl-get-customer-by-id-v2</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.vhorvath.valogato</groupId>
 			<artifactId>thr-core</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.1</version>
 		</dependency>
 		
 	</dependencies>
@@ -93,4 +92,8 @@
 		</plugins>
 	</build>
 
+
+  <scm>
+    <tag>throttling-modules-1.1</tag>
+  </scm>
 </project>
