@@ -5,7 +5,7 @@
 
 	<groupId>com.googlecode.valogato</groupId>
 	<artifactId>sim-service-get-customer-by-id-v2</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<name>sim-service-get-customer-by-id-v2</name>
 
 	<parent>
@@ -29,13 +29,13 @@
 		<dependency>
 			<groupId>com.googlecode.valogato</groupId>
 			<artifactId>sim-wsdl-get-customer-by-id-v2</artifactId>
-			<version>1.1</version>
+			<version>1.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.googlecode.valogato</groupId>
 			<artifactId>thr-core</artifactId>
-			<version>1.1</version>
+			<version>1.2-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
@@ -90,8 +90,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-  <scm>
-    <tag>release4_throttling-modules-1.1</tag>
-  </scm>
 </project>

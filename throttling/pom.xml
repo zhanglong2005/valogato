@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>throttling-modules</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>throttling</name>
 	<url>http://maven.apache.org</url>
@@ -30,7 +30,7 @@
 
 	<scm>
 		<connection>scm:hg:https://code.google.com/p/valogato</connection>
-	  <tag>release4_throttling-modules-1.1</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<distributionManagement>
