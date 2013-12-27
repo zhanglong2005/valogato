@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.googlecode.valogato</groupId>
 	<artifactId>sim-wsdl-get-customer-by-id-v2</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>sim-wsdl-get-customer-by-id-v2</name>
 	
 	<parent>
 		<groupId>com.googlecode.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.1</version>
 	</parent>
 	
 	<properties>
@@ -68,4 +68,8 @@
 			</plugin>
 		</plugins>
 	</build>
+
+  <scm>
+    <tag>release4_throttling-modules-1.1</tag>
+  </scm>
 </project>

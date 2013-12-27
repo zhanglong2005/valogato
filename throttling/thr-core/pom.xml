@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>thr-core</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>thr-core</name>
 
 	<parent>
 		<groupId>com.googlecode.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.1</version>
 	</parent>
 
 	<properties>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>com.googlecode.valogato</groupId>
 			<artifactId>thr-common</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.1</version>
 		</dependency>
 	</dependencies>
 
@@ -70,4 +70,8 @@
 			</plugin>
 		</plugins>
 	</build>
+
+  <scm>
+    <tag>release4_throttling-modules-1.1</tag>
+  </scm>
 </project>

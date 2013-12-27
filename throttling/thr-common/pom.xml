@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>thr-common</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>thr-common</name>
 	<url>http://maven.apache.org</url>
 
 	<parent>
 		<groupId>com.googlecode.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.1</version>
 	</parent>
 
 	<properties>
@@ -96,4 +96,8 @@
 		</plugins>
 	</build>
 
+
+  <scm>
+    <tag>release4_throttling-modules-1.1</tag>
+  </scm>
 </project>

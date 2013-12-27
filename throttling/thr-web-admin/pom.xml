@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>com.googlecode.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.1</version>
 	</parent>
 
 	<artifactId>thr-web-admin</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<packaging>war</packaging>
 	<name>thr-web-admin</name>
 
@@ -146,7 +146,7 @@
 		<dependency>
 			<groupId>com.googlecode.valogato</groupId>
 			<artifactId>thr-common</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.1</version>
 		</dependency>
 		
 		<!-- for Apache Struts2 file upload -->
@@ -172,7 +172,7 @@
 
 	<scm>
 		<connection>scm:hg:https://code.google.com/p/valogato</connection>
-	  <tag>HEAD</tag>
+	  <tag>release4_throttling-modules-1.1</tag>
   </scm>
 
 	<distributionManagement>

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>throttling-modules</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<packaging>pom</packaging>
 	<name>throttling</name>
 	<url>http://maven.apache.org</url>
@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>com.googlecode.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.1</version>
 	</parent>
 	
 	<properties>
@@ -30,7 +30,7 @@
 
 	<scm>
 		<connection>scm:hg:https://code.google.com/p/valogato</connection>
-	  <tag>HEAD</tag>
+	  <tag>release4_throttling-modules-1.1</tag>
   </scm>
 
 	<distributionManagement>
