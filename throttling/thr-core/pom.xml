@@ -3,15 +3,15 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.vhorvath.valogato</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.1</version>
-	</parent>
-
 	<artifactId>thr-core</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>thr-core</name>
+
+	<parent>
+		<groupId>com.googlecode.valogato</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.1-SNAPSHOT</version>
+	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,9 +19,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.vhorvath.valogato</groupId>
+			<groupId>com.googlecode.valogato</groupId>
 			<artifactId>thr-common</artifactId>
-			<version>1.2-SNAPSHOT</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -33,16 +33,38 @@
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
-						<!-- or any other valid maven phase -->
-						<!--phase>install</phase-->
 						<goals>
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
-							<includeGroupIds>org.vhorvath.valogato</includeGroupIds>
+							<includeGroupIds>com.googlecode.valogato</includeGroupIds>
 							<includeArtifactIds>thr-common</includeArtifactIds>
 							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

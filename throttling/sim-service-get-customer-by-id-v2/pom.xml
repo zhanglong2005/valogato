@@ -3,15 +3,15 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.vhorvath.valogato.simulation.service</groupId>
+	<groupId>com.googlecode.valogato</groupId>
 	<artifactId>sim-service-get-customer-by-id-v2</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>sim-service-get-customer-by-id-v2</name>
 
 	<parent>
-		<groupId>org.vhorvath.valogato</groupId>
+		<groupId>com.googlecode.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -27,15 +27,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.vhorvath.valogato.simulation.wsdl</groupId>
+			<groupId>com.googlecode.valogato</groupId>
 			<artifactId>sim-wsdl-get-customer-by-id-v2</artifactId>
-			<version>1.2-SNAPSHOT</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.vhorvath.valogato</groupId>
+			<groupId>com.googlecode.valogato</groupId>
 			<artifactId>thr-core</artifactId>
-			<version>1.2-SNAPSHOT</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
@@ -54,7 +54,7 @@
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
-							<includeGroupIds>org.vhorvath.valogato</includeGroupIds>
+							<includeGroupIds>com.googlecode.valogato</includeGroupIds>
 							<includeArtifactIds>
 								sim-wsdl-get-customer-by-id-v2,
 								thr-core
@@ -64,13 +64,24 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
 						<goals>
 							<goal>jar</goal>
 						</goals>

@@ -3,15 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>throttling-modules</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>throttling</name>
 	<url>http://maven.apache.org</url>
 
 	<parent>
-		<groupId>org.vhorvath.valogato</groupId>
+		<groupId>com.googlecode.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 	
 	<properties>

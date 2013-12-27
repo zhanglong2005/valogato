@@ -1,16 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.vhorvath.valogato.built-in-code</groupId>
 	<artifactId>standalone-builtin-client</artifactId>
+	<groupId>com.googlecode.valogato</groupId>
 	<version>1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>standalone-builtin-client</name>
 
 	<parent>
-		<groupId>org.vhorvath.valogato</groupId>
+		<groupId>com.googlecode.valogato</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.1</version>
+		<version>1.1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -19,17 +19,16 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.vhorvath.valogato.simulation.wsdl</groupId>
+			<groupId>com.googlecode.valogato</groupId>
 			<artifactId>sim-wsdl-get-customer-by-id-v2</artifactId>
-			<version>1.2-SNAPSHOT</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.vhorvath.valogato</groupId>
+			<groupId>com.googlecode.valogato</groupId>
 			<artifactId>thr-core</artifactId>
-			<version>1.2-SNAPSHOT</version>
+			<version>1.1-SNAPSHOT</version>
 		</dependency>
-		
 	</dependencies>
 
 	<build>
@@ -40,8 +39,6 @@
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
-						<!-- or any other valid maven phase -->
-						<!--phase>install</phase -->
 						<goals>
 							<goal>unpack-dependencies</goal>
 						</goals>
@@ -56,21 +53,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -88,7 +70,30 @@
 					</archive>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>
